@@ -12,6 +12,7 @@ import Animated, {
 import { State, TapGestureHandler } from "react-native-gesture-handler";
 import { between, onGestureEvent, useValues } from "react-native-redash";
 import { useNavigation } from "react-navigation-hooks";
+
 import { Navigation } from "../IPodNavigator";
 
 export enum Command {
@@ -82,7 +83,7 @@ interface ButtonsProps {
 }
 
 export default ({ command, children }: ButtonsProps) => {
-  const [state, x, y] = useValues([State.UNDETERMINED, 0, 0]);
+  const [state, x, y] = useValues(State.UNDETERMINED, 0, 0);
   const tapGestureHandler = onGestureEvent({ state, x, y });
   useCode(
     () =>

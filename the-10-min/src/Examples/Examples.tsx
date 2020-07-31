@@ -1,10 +1,10 @@
 import * as React from "react";
 import { ScrollView, StyleSheet } from "react-native";
-
 import {
   NavigationScreenConfigProps,
   NavigationScreenProp,
 } from "react-navigation";
+
 import { StyleGuide, Thumbnail } from "../components";
 
 export const examples = [
@@ -67,6 +67,26 @@ export const examples = [
     screen: "Transformation3D",
     title: "3D Transformations",
     source: require("../../assets/examples/3d.png"),
+  },
+  {
+    screen: "Ripple",
+    title: "Ripple Effect",
+    source: require("../../assets/examples/accordion.png"),
+  },
+  {
+    screen: "Trigonometry",
+    title: "Trigonometry",
+    source: require("../../assets/examples/circular-progress.png"),
+  },
+  {
+    screen: "Wallet",
+    title: "Wallet",
+    source: require("../../assets/examples/accordion.png"),
+  },
+  {
+    screen: "Picker",
+    title: "Picker",
+    source: require("../../assets/examples/accordion.png"),
   },
 ];
 

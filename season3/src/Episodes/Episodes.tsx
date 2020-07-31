@@ -1,7 +1,9 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
-import Icon from "./Icon";
+
 import { StyleGuide } from "../components";
+
+import Icon from "./Icon";
 
 const styles = StyleSheet.create({
   container: {
@@ -59,6 +61,11 @@ export const episodes = [
     id: "Instagram",
     name: "Instagram",
     icon: require("../../assets/icons/instagram.png"),
+  },
+  {
+    id: "UberEatsSwipe",
+    name: "UberEatsSwipe",
+    icon: require("../../assets/icons/uber-eats.png"),
   },
 ];
 

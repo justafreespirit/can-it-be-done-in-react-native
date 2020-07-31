@@ -52,7 +52,7 @@ const Listing = () => {
     translateY,
     snapBack,
     state,
-  ] = useValues([0, 0, 0, 0, 0, 0, State.UNDETERMINED]);
+  ] = useValues<number>(0, 0, 0, 0, 0, 0, State.UNDETERMINED);
   const snapTo = snapPoint(translationY, velocityY, [0, height]);
   const scale = interpolate(translateY, {
     inputRange: [0, height / 2],
@@ -89,9 +89,6 @@ const Listing = () => {
           )
         ),
       ]),
-    // we disable the deps because we don't want the identity change on
-    // snapPoint to trigger a side effect
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     []
   );
   return (

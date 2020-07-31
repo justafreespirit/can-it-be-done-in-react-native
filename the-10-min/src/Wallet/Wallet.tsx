@@ -1,125 +1,79 @@
-import React, { useState } from "react";
-import { Dimensions, StyleSheet, View } from "react-native";
-
-import Animated, {
-  Extrapolate,
-  add,
-  interpolate,
-} from "react-native-reanimated";
+import React, { useRef, useState } from "react";
+import { Animated, Dimensions, FlatList } from "react-native";
 
 import { PanGestureHandler } from "react-native-gesture-handler";
 import {
   diffClamp,
+  onScrollEvent,
   usePanGestureHandler,
   withDecay,
-  withOffset,
 } from "react-native-redash";
-import Card, { CARD_HEIGHT, Cards } from "../Transformations/components/Card";
+import { CARD_HEIGHT, Cards } from "../Transformations/components/Card";
+import WalletCard from "./WalletCard";
 
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+const useLazyRef = <T extends object>(initializer: () => T) => {
+  const ref = useRef<T>();
+  if (ref.current === undefined) {
+    ref.current = initializer();
+  }
+  return ref.current;
+};
 const { height } = Dimensions.get("window");
 const MARGIN = 16;
 const HEIGHT = CARD_HEIGHT + MARGIN * 2;
 const cards = [
   {
+    index: 1,
     type: Cards.Card1,
   },
   {
+    index: 2,
     type: Cards.Card2,
   },
   {
+    index: 3,
     type: Cards.Card3,
   },
   {
+    index: 4,
     type: Cards.Card4,
   },
   {
+    index: 5,
     type: Cards.Card5,
   },
   {
+    index: 7,
     type: Cards.Card6,
   },
 ];
-const styles = StyleSheet.create({
-  container: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: "center",
-  },
-  card: {
-    marginVertical: MARGIN,
-  },
-});
 
 const Wallet = () => {
-  const [containerHeight, setContainerHeight] = useState(height);
-  const visibleCards = Math.floor(containerHeight / HEIGHT);
-  const {
-    gestureHandler,
-    translation,
-    velocity,
-    state,
-  } = usePanGestureHandler();
-  const y = diffClamp(
-    withDecay({
-      value: translation.y,
-      velocity: velocity.y,
-      state,
-    }),
-    -HEIGHT * cards.length + visibleCards * HEIGHT,
-    0
+  const y = useLazyRef(() => new Animated.Value(0));
+  const onScroll = useLazyRef(() =>
+    Animated.event(
+      [
+        {
+          nativeEvent: {
+            contentOffset: { y },
+          },
+        },
+      ],
+      { useNativeDriver: true }
+    )
   );
   return (
-    <PanGestureHandler {...gestureHandler}>
-      <Animated.View
-        style={styles.container}
-        onLayout={({
-          nativeEvent: {
-            layout: { height: h },
-          },
-        }) => setContainerHeight(h)}
-      >
-        {cards.map(({ type }, index) => {
-          const positionY = add(y, index * HEIGHT);
-          const isDisappearing = -HEIGHT;
-          const isTop = 0;
-          const isBottom = HEIGHT * (visibleCards - 1);
-          const isAppearing = HEIGHT * visibleCards;
-          const translateYWithScale = interpolate(positionY, {
-            inputRange: [isBottom, isAppearing],
-            outputRange: [0, -HEIGHT / 4],
-            extrapolate: Extrapolate.CLAMP,
-          });
-          const translateY = add(
-            interpolate(y, {
-              inputRange: [-HEIGHT * index, 0],
-              outputRange: [-HEIGHT * index, 0],
-              extrapolate: Extrapolate.CLAMP,
-            }),
-            translateYWithScale
-          );
-          const scale = interpolate(positionY, {
-            inputRange: [isDisappearing, isTop, isBottom, isAppearing],
-            outputRange: [0.5, 1, 1, 0.5],
-            extrapolate: Extrapolate.CLAMP,
-          });
-          const opacity = interpolate(positionY, {
-            inputRange: [isDisappearing, isTop, isBottom, isAppearing],
-            outputRange: [0, 1, 1, 0],
-            extrapolate: Extrapolate.CLAMP,
-          });
-          return (
-            <Animated.View
-              style={[
-                styles.card,
-                { opacity, transform: [{ translateY }, { scale }] },
-              ]}
-              key={index}
-            >
-              <Card {...{ type }} />
-            </Animated.View>
-          );
-        })}
-      </Animated.View>
-    </PanGestureHandler>
+    <AnimatedFlatList
+      scrollEventThrottle={16}
+      bounces={false}
+      {...{ onScroll }}
+      data={cards}
+      renderItem={({ index, item: { type } }) => (
+        <WalletCard {...{ index, y, type }} />
+      )}
+      keyExtractor={(item) => `${item.index}`}
+    />
   );
 };
 
