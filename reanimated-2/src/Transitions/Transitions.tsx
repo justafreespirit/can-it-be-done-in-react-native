@@ -6,9 +6,9 @@ import Animated, {
   useDerivedValue,
   withSpring,
 } from "react-native-reanimated";
+import { mix } from "react-native-redash";
 
 import { Button, Card, StyleGuide, cards } from "../components";
-import { mix } from "../components/AnimatedHelpers";
 
 const { width } = Dimensions.get("window");
 const styles = StyleSheet.create({
@@ -44,12 +44,13 @@ const UseTransition = () => {
   return (
     <View style={styles.container}>
       {cards.slice(0, 3).map((card, index) => {
+        // eslint-disable-next-line react-hooks/rules-of-hooks
         const style = useAnimatedStyle(() => {
           const rotate = (index - 1) * mix(transition.value, 0, Math.PI / 6);
           return {
             transform: [
               { translateX: origin.x },
-              { rotate },
+              { rotate: `${rotate}rad` },
               { translateX: -origin.x },
             ],
           };
@@ -62,8 +63,8 @@ const UseTransition = () => {
       })}
       <Button
         label={toggled ? "Reset" : "Start"}
-        primary
         onPress={() => setToggle((prev) => !prev)}
+        primary
       />
     </View>
   );

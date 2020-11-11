@@ -4,4 +4,19 @@ export type Routes = {
   PanGesture: undefined;
   Transitions: undefined;
   Chart: undefined;
+  JellyScroll: undefined;
+  MaskedView: undefined;
+  Accordion: undefined;
+  Wave: undefined;
+  Fluid: undefined;
+  StrokeAnimation: undefined;
+  ZAnimations: undefined;
+};
+
+export type Examples = {
+  Examples: undefined;
+  Logo: undefined;
+  Cone: undefined;
+  Donut: undefined;
+  Cube: undefined;
 };

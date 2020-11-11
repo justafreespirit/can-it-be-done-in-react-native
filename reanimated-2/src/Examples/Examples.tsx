@@ -24,6 +24,34 @@ export const examples = [
     screen: "Chart",
     title: "📈 Chart",
   },
+  {
+    screen: "JellyScroll",
+    title: "🍩 Jelly Scroll",
+  },
+  {
+    screen: "MaskedView",
+    title: "📱 Masked View",
+  },
+  {
+    screen: "Accordion",
+    title: "🗺 Accordion",
+  },
+  {
+    screen: "Wave",
+    title: "🌊 Wave",
+  },
+  {
+    screen: "Fluid",
+    title: "🍸 Fluid",
+  },
+  {
+    screen: "StrokeAnimation",
+    title: "🔠 Stroke Animations",
+  },
+  {
+    screen: "ZAnimations",
+    title: "⚛️ 3D Animations",
+  },
 ] as const;
 
 const styles = StyleSheet.create({
