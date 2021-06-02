@@ -11,6 +11,11 @@ export type Routes = {
   Fluid: undefined;
   StrokeAnimation: undefined;
   ZAnimations: undefined;
+  StickyShapes: undefined;
+  DVDLogo: undefined;
+  PizzaChallenge: undefined;
+  Breathe: undefined;
+  Nokia: undefined;
 };
 
 export type Examples = {

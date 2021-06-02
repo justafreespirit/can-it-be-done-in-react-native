@@ -1,6 +1,6 @@
 import { move } from "react-native-redash";
 
-import { SharedValues } from "../components/AnimatedHelpers";
+import { SharedValues } from "../components/AnimatedHelpers/Utils";
 
 export const MARGIN_TOP = 150;
 export const MARGIN_LEFT = 32;
@@ -35,7 +35,7 @@ export const lastOrder = (input: Offset[]) => {
 export const remove = (input: Offset[], index: number) => {
   "worklet";
   const offsets = input
-    .filter((o, i) => i !== index)
+    .filter((_, i) => i !== index)
     .filter(isNotInBank)
     .sort(byOrder);
   offsets.map((offset, i) => (offset.order.value = i));
