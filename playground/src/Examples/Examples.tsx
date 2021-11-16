@@ -1,60 +1,20 @@
 import * as React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { StackNavigationProp } from "@react-navigation/stack";
+import type { StackNavigationProp } from "@react-navigation/stack";
 import { useNavigation } from "@react-navigation/native";
 import { RectButton } from "react-native-gesture-handler";
 
-import { Routes } from "../Routes";
-import { StyleGuide } from "../components";
+import type { Routes } from "../Routes";
+import { StyleGuide } from "../components/StyleGuide";
 
 const examples = [
   {
-    screen: "Duolingo",
-    title: "🦉 Duolingo",
+    screen: "RotaryLogin",
+    title: "☎️ Rotary Login",
   },
   {
-    screen: "Rainbow",
-    title: "🌈 Rainbow",
-  },
-  {
-    screen: "Snapchat",
-    title: "👻 Snapchat",
-  },
-  {
-    screen: "PhilzCoffee",
-    title: "☕️ Philz Coffee",
-  },
-  {
-    screen: "Chrome",
-    title: "🧭 Google Chrome",
-  },
-  {
-    screen: "Chanel",
-    title: "👗 Chanel",
-  },
-  {
-    screen: "ColorSelection",
-    title: "🎨 Color Selection",
-  },
-  {
-    screen: "Reflectly",
-    title: "🤖 Reflectly",
-  },
-  {
-    screen: "Chess",
-    title: "♟ Chess",
-  },
-  {
-    screen: "Bedtime",
-    title: "⏰ Bedtime",
-  },
-  {
-    screen: "Darkroom",
-    title: "🏞 Darkroom",
-  },
-  {
-    screen: "LiquidSwipe",
-    title: "💧 Liquid Swipe",
+    screen: "Tarot",
+    title: "🧙‍♂️ Tarot",
   },
 ] as const;
 
@@ -76,8 +36,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const Examples = () => {
-  const { navigate } = useNavigation<StackNavigationProp<Routes, "Examples">>();
+export const Examples = () => {
+  const { navigate } =
+    useNavigation<StackNavigationProp<Routes, "Playground">>();
   return (
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       {examples.map((thumbnail) => (
@@ -93,5 +54,3 @@ const Examples = () => {
     </ScrollView>
   );
 };
-
-export default Examples;
